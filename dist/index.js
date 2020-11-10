@@ -12147,7 +12147,9 @@ function getInputs(defaultContext) {
             cacheTo: yield getInputList('cache-to', true),
             secrets: yield getInputList('secrets', true),
             githubToken: core.getInput('github-token'),
-            ssh: yield getInputList('ssh')
+            ssh: yield getInputList('ssh'),
+            compress: /true/i.test(core.getInput('compress')),
+            forceRm: /true/i.test(core.getInput('force-rm'))
         };
     });
 }
@@ -12228,6 +12230,12 @@ function getCommonArgs(inputs) {
         }
         if (inputs.push) {
             args.push('--push');
+        }
+        if (inputs.compress) {
+            args.push('--compress');
+        }
+        if (inputs.forceRm) {
+            args.push('--force-rm');
         }
         return args;
     });

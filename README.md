@@ -622,6 +622,8 @@ Following inputs can be used as `step.with` keys
 | `cache-to`          | List     | List of [cache export destinations](https://github.com/docker/buildx#--cache-tonametypetypekeyvalue) (eg. `type=local,dest=path/to/dir`) |
 | `secrets`           | List     | List of secrets to expose to the build (eg. `key=value`, `GIT_AUTH_TOKEN=mytoken`) |
 | `ssh`               | List     | List of SSH agent socket or keys to expose to the build |
+| `compress`          | List     | Compress the build context using gzip (default `false`) |
+| `force-rm`          | List     | Always remove intermediate containers (default `false`) |
 
 ### outputs
 

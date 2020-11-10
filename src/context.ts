@@ -31,6 +31,8 @@ export interface Inputs {
   secrets: string[];
   githubToken: string;
   ssh: string[];
+  compress: boolean;
+  forceRm: boolean;
 }
 
 export function defaultContext(): string {
@@ -73,7 +75,9 @@ export async function getInputs(defaultContext: string): Promise<Inputs> {
     cacheTo: await getInputList('cache-to', true),
     secrets: await getInputList('secrets', true),
     githubToken: core.getInput('github-token'),
-    ssh: await getInputList('ssh')
+    ssh: await getInputList('ssh'),
+    compress: /true/i.test(core.getInput('compress')),
+    forceRm: /true/i.test(core.getInput('force-rm'))
   };
 }
 
@@ -151,6 +155,12 @@ async function getCommonArgs(inputs: Inputs): Promise<Array<string>> {
   }
   if (inputs.push) {
     args.push('--push');
+  }
+  if (inputs.compress) {
+    args.push('--compress');
+  }
+  if (inputs.forceRm) {
+    args.push('--force-rm');
   }
   return args;
 }
